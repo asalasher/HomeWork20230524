@@ -28,10 +28,8 @@ namespace ConsoleAppInputs
             while (!isValidInput)
             {
                 Console.WriteLine("Introduce a boolean value");
-                string userInput = Console.ReadLine();
-                bool validatedInput;
 
-                if (bool.TryParse(userInput, out validatedInput))
+                if (bool.TryParse(Console.ReadLine(), out bool validatedInput))
                 {
                     isValidInput = true;
                     booleanValue = validatedInput;
@@ -49,10 +47,8 @@ namespace ConsoleAppInputs
             while (!isValidInput)
             {
                 Console.WriteLine("Introduce an integer value");
-                string userInput = Console.ReadLine();
-                int validatedInput;
 
-                if (int.TryParse(userInput, out validatedInput))
+                if (int.TryParse(Console.ReadLine(), out int validatedInput))
                 {
                     isValidInput = true;
                     integerValue = validatedInput;
@@ -70,10 +66,8 @@ namespace ConsoleAppInputs
             while (!isValidInput)
             {
                 Console.WriteLine("Introduce a decimal value");
-                string userInput = Console.ReadLine();
-                decimal validatedInput;
 
-                if (decimal.TryParse(userInput, out validatedInput))
+                if (decimal.TryParse(Console.ReadLine(), out decimal validatedInput))
                 {
                     isValidInput = true;
                     decimalValue = validatedInput;
@@ -91,10 +85,8 @@ namespace ConsoleAppInputs
             while (!isValidInput)
             {
                 Console.WriteLine("Introduce a character");
-                string userInput = Console.ReadLine();
-                char validatedInput;
 
-                if (char.TryParse(userInput, out validatedInput))
+                if (char.TryParse(Console.ReadLine(), out char validatedInput))
                 {
                     isValidInput = true;
                     charValue = validatedInput;
