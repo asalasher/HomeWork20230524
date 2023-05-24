@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ConsoleAppInputs
 {
@@ -118,9 +119,8 @@ namespace ConsoleAppInputs
             while (!isValidInput)
             {
                 Console.WriteLine("Introduce a date (MM/dd/yyyy):");
-                string userInput = Console.ReadLine();
 
-                if (DateTime.TryParse(userInput, out DateTime date))
+                if (DateTime.TryParseExact(Console.ReadLine(), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
                 {
                     isValidInput = true;
                     dateTimeValue = date;
@@ -138,7 +138,7 @@ namespace ConsoleAppInputs
 
             try
             {
-                Console.WriteLine("The division is {0}/{1} = {2}", integerValue, decimalValue, (decimal)integerValue/decimalValue);
+                Console.WriteLine("The division is {0}/{1} = {2}", (decimal)integerValue, decimalValue, (decimal)integerValue /decimalValue);
             }
             catch
             {
@@ -156,6 +156,9 @@ namespace ConsoleAppInputs
             Console.WriteLine("The modified date is: {0}", newDate.ToString());
 
             #endregion
+
+            Console.WriteLine("Press a key to exit");
+            Console.ReadLine();
         }
     }
 }
