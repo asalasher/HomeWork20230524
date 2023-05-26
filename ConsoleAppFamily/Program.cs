@@ -12,7 +12,7 @@ namespace ConsoleAppFamily
     {
         static void Main(string[] args)
         {
-            Son s = new Son();
+            Son son = new Son();
 
             Console.WriteLine("Welcome");
             Console.WriteLine("An instance of the class 'Son' has been created with some default values");
@@ -28,7 +28,7 @@ namespace ConsoleAppFamily
                 switch (AskForInteger(1,3))
                 {
                     case 1:
-                        s.printAllValues();
+                        son.printAllValues();
                         break;
                     case 2:
                         Console.WriteLine("Select which value you would like to modify:");
@@ -45,7 +45,7 @@ namespace ConsoleAppFamily
                         Console.WriteLine("8. Modify the grandfather's name");
                         Console.WriteLine("9. Modify the grandfather's id");
 
-                        s.ModifyAField(AskForInteger(1,8));
+                        son.ModifyAField(Console.ReadLine());
                         break;
                     case 3:
                         exit = true;
@@ -71,5 +71,6 @@ namespace ConsoleAppFamily
                 }
             }
         }
+
     }
 }
