@@ -41,6 +41,7 @@ namespace ConsoleAppInputs
             }
             #endregion
 
+
             #region integer value
             isValidInput = false;
 
