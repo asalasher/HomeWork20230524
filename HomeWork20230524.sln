@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POOMultiUserBank", "POOMult
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POOSingleUserBank", "POOSingleUserBank\POOSingleUserBank.csproj", "{D79682D1-E575-4372-A084-645874BBE5B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POOWorkersAdminV1", "POOWorkersAdminV1\POOWorkersAdminV1.csproj", "{95819B97-13D4-4B92-9E34-57C3FD6AD2BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D79682D1-E575-4372-A084-645874BBE5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D79682D1-E575-4372-A084-645874BBE5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D79682D1-E575-4372-A084-645874BBE5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95819B97-13D4-4B92-9E34-57C3FD6AD2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95819B97-13D4-4B92-9E34-57C3FD6AD2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95819B97-13D4-4B92-9E34-57C3FD6AD2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95819B97-13D4-4B92-9E34-57C3FD6AD2BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
