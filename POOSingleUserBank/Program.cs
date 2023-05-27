@@ -57,6 +57,13 @@ namespace POOSingleUserBank
                         Console.WriteLine("Option not available. Please introduce a number between 1 and 7");
                         break;
                 }
+
+                Console.WriteLine("Is there any other operation you would like to do ? (press 'y' if so)");
+                if (Console.ReadLine() != "y")
+                {
+                    exit = true;
+                }
+
             } while (!exit);
         }
 

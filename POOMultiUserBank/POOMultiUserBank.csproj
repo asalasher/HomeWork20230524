@@ -43,12 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountManager.cs" />
-    <Compile Include="Session.cs" />
-    <Compile Include="Transaction.cs" />
+    <Compile Include="Classes\AccountManager.cs" />
+    <Compile Include="Classes\Session.cs" />
+    <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Classes\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
