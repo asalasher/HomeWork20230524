@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppController.cs" />
     <Compile Include="DataValidator.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Entities\ItWorker.cs" />

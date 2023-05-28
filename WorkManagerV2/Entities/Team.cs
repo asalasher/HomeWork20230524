@@ -58,11 +58,28 @@ namespace POOWorkersAdminV1
             return false;
         }   
 
+        public bool IsWorkerInTeam(int idWorker)
+        {
+            if (Manager.Id == idWorker)
+            {
+                return true;
+            }
+
+            foreach (var worker in Technicians)
+            {
+                if (worker.Id == idWorker)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override string ToString()
         {
             return $"Id: {Id} | Name: {Name} | Manager id: {Manager.Id} | Manger name: {Manager.Name}";
         }
-
 
     }
 }

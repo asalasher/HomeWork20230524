@@ -20,4 +20,11 @@ namespace POOWorkersAdminV1
         Done,
     }
 
+    public enum WorkerRoles
+    {
+        Admin,
+        Manager,
+        Worker,
+    }
+
 }

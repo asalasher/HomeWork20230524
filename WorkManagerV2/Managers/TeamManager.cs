@@ -51,6 +51,18 @@ namespace POOWorkersAdminV1
             return null;
         }
 
+        public Team GetTeamByWorkerId(int idWorker)
+        {
+            foreach (var team in Teams)
+            {
+                if (team.IsWorkerInTeam(idWorker))
+                {
+                    return team;
+                }
+            }
+            return null;
+        }
+
         public bool DeleteIdWorkerFromTeam(int idWorker)
         {
             foreach (var team in Teams)

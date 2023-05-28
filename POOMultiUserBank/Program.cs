@@ -11,8 +11,6 @@ namespace POOMultiUserBank
     {
         static void Main(string[] args)
         {
-            // una vez finalizada cada operacion el programa preguntará al usario si quiere realizar alguna otra operación
-            // si el usuario dice que no, mostrará el valor actual de saldo y finalizará el programa
 
             // Mock data
             List<User> users = new List<User>()
