@@ -22,6 +22,7 @@ namespace POOWorkersAdminV1
             {
                 return _technology;
             }
+
             set
             {
                 _technology = value.ToLower();
