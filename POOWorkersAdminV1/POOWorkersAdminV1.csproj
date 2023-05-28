@@ -43,8 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataValidator.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Entities\ItWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Managers\TaskManager.cs" />
+    <Compile Include="Entities\Team.cs" />
+    <Compile Include="Managers\TeamManager.cs" />
+    <Compile Include="Entities\Worker.cs" />
+    <Compile Include="Managers\WorkerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

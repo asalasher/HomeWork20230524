@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,13 @@ namespace POOWorkersAdminV1
     {
         static void Main(string[] args)
         {
-            // una vez finalizada cada operacion el programa preguntará al usario si quiere realizar alguna otra operación
-            // si el usuario dice que no, mostrará el valor actual de saldo y finalizará el programa
-
             // Mock data
             List<ItWorker> workers = new List<ItWorker>()
             {
-                new ItWorker("Pedro", "Liarte", new DateTime(1989, 09, 16), 2, new List<string>(){"mySql", "javascript"}, WorkerLevel.Junior),
-                new ItWorker("Maria", "Vela", new DateTime(1990, 02, 12), 5, new List<string>(){"golang", "c++"}, WorkerLevel.Junior),
-                new ItWorker("Adrian", "Alquezar", new DateTime(1991, 12, 11), 1, new List<string>(){"c", "c#"}, WorkerLevel.Medium),
-                new ItWorker("Perico", "Rodriguez", new DateTime(1981, 17, 01), 10, new List<string>(){"c", "c#"}, WorkerLevel.Senior),
+                new ItWorker("Pedro", "Liarte",new DateTime(2010, 6, 1), 2, new List<string>(){"mySql", "javascript"}, WorkerLevel.Junior),
+                new ItWorker("Maria", "Vela", new DateTime(2000, 6, 1), 5, new List<string>(){"golang", "c++"}, WorkerLevel.Junior),
+                new ItWorker("Adrian", "Alquezar", new DateTime(1990, 6, 1), 1, new List<string>(){"c", "c#"}, WorkerLevel.Medium),
+                new ItWorker("Alberto", "Salas", new DateTime(1989, 6, 1), 10, new List<string>(){"c", "c#"}, WorkerLevel.Senior),
             };
 
             var workerManager = new WorkerManager(workers);
@@ -31,7 +29,6 @@ namespace POOWorkersAdminV1
             var exit = false;
             do
             {
-                // Options
                 Console.WriteLine("=====================");
                 Console.WriteLine("Introduce an option");
                 Console.WriteLine("1. Register new IT worker");
@@ -47,7 +44,6 @@ namespace POOWorkersAdminV1
                 Console.WriteLine("11. Unregister worker");
                 Console.WriteLine("12. Exit");
 
-                //TODO - change methods
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -78,7 +74,7 @@ namespace POOWorkersAdminV1
                         AssignTeamTechnician(teamManager, workerManager);
                         break;
                     case "10":
-                        AssignTaskToWorker();
+                        AssignTaskToWorker(taskManager, workerManager);
                         break;
                     case "11":
                         UnregisterWorker(taskManager, workerManager, teamManager);
@@ -96,47 +92,6 @@ namespace POOWorkersAdminV1
             Console.ReadLine();
         }
 
-        public static int? AskForUnsignedInteger()
-        {
-            var numberOfAttempts = 0;
-            var maxNumberOfAttempts = 3;
-            while (numberOfAttempts < maxNumberOfAttempts)
-            {
-                if (int.TryParse(Console.ReadLine(), out int validatedInput) && validatedInput > 0)
-                {
-                    return validatedInput;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please make sure your input is a positive integer value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
-                }
-            }
-            Console.WriteLine("Too many attempts, try again later");
-            return null;
-        }
-
-        public static decimal? AskForUnsignedDecimal()
-        {
-            var numberOfAttempts = 0;
-            var maxNumberOfAttempts = 3;
-            while (numberOfAttempts < maxNumberOfAttempts)
-            {
-                if (decimal.TryParse(Console.ReadLine(), out decimal validatedInput) && validatedInput > 0)
-                {
-                    return validatedInput;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please make sure your input is a positive decimal value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
-                }
-            }
-
-            Console.WriteLine("Too many attempts, try again later");
-            return null;
-        }
-
         public static void RegisterNewItWorker(WorkerManager workerManger)
         {
             Console.WriteLine("Introduce the following data in order to create a new It worker:");
@@ -147,20 +102,25 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Surname:");
             var workerSurname = Console.ReadLine();
 
-            Console.WriteLine("Date of birth:"); // TODO
-            DateTime? workerDateOfBirth = null;
+            Console.WriteLine("Date of birth:");
+            var workerDateOfBirth = DataValidator.AskForDate();
             if (workerDateOfBirth == null) { return; }
 
             Console.WriteLine("Years of experience:");
-            var workerYearsOfExperience = AskForUnsignedInteger();
+            var workerYearsOfExperience = DataValidator.AskForUnsignedInteger();
             if (workerYearsOfExperience == null) { return; }
 
-            // TODO - split by ,
             Console.WriteLine("Technologies knows (write them separated by a coma):");
+            var rawInput = Console.ReadLine();
+            var workerTechnologies = rawInput.Split(',').Select(e => e.ToLower()).ToList();
+            //var workerTechnologies = rawInput.Split(',').ToList();
 
-            Console.WriteLine("Level");
+            Console.WriteLine("Level:");
+            Console.WriteLine("Introduce the worker's level (Junior, Medium, Senior)");
+            var workerLevel = DataValidator.AskForWorkerLevel();
+            if (workerLevel == null) { return; }
 
-            var newWorker = new ItWorker(workerName, workerSurname, workerDateOfBirth, workerYearsOfExperience, workerTechnologies, workerLevel);
+            var newWorker = new ItWorker(workerName, workerSurname, (DateTime)workerDateOfBirth, (int)workerYearsOfExperience, workerTechnologies, (WorkerLevel)workerLevel);
 
             if (workerManger.RegisterNewWorker(newWorker))
             {
@@ -172,7 +132,6 @@ namespace POOWorkersAdminV1
             }
         }
 
-
         public static void RegisterNewTeam(WorkerManager workerManager)
         {
             Console.WriteLine("Introduce the following data in order to create a new team:");
@@ -181,7 +140,7 @@ namespace POOWorkersAdminV1
             var newTeamName = Console.ReadLine();
 
             Console.WriteLine("Id of IT worker that will be the manager (it has to be an unsigned integer):");
-            var newTeamManagerId = AskForUnsignedInteger();
+            var newTeamManagerId = DataValidator.AskForUnsignedInteger();
             if (newTeamManagerId == null) { return; }
             var newTeamManager = workerManager.GetWorkerById((int)newTeamManagerId);
 
@@ -250,7 +209,7 @@ namespace POOWorkersAdminV1
         public static void ListUnassignedTasks(TaskManager taskManager)
         {
             Console.WriteLine("Unassigned tasks:");
-            var unassignedTasks = taskManager.GetTaskByIdWorker(null);
+            var unassignedTasks = taskManager.GetTasksByIdWorker(null);
             foreach (var task in unassignedTasks)
             {
                 Console.WriteLine(task.Name);
@@ -292,7 +251,7 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Introduce the following data in order to assign a worker to a team as a manager");
 
             Console.WriteLine("Worker's id:");
-            var workerId = AskForUnsignedInteger();
+            var workerId = DataValidator.AskForUnsignedInteger();
             if (workerId == null) { return; }
             var worker = workerManager.GetWorkerById((int)workerId);
             if (worker == null)
@@ -301,13 +260,24 @@ namespace POOWorkersAdminV1
                 return;
             }
 
+            if (worker.Level != WorkerLevel.Senior)
+            {
+                Console.WriteLine("The worker must be senior to be a manager");
+                 return;
+            }
+
             Console.WriteLine("Team's id:");
-            var teamId = AskForUnsignedInteger();
+            var teamId = DataValidator.AskForUnsignedInteger();
             if (teamId == null) { return; }
             var team = teamManager.GetTeamById((int)teamId);
             if (team == null)
             {
                 Console.WriteLine("No team found with such an ID");
+                return;
+            }
+            if (team.Manager != null)
+            {
+                Console.WriteLine("The team already has a manager");
                 return;
             }
         }
@@ -317,7 +287,7 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Introduce the following data in order to assign a worker to a team as a technician");
 
             Console.WriteLine("Worker's id:");
-            var workerId = AskForUnsignedInteger();
+            var workerId = DataValidator.AskForUnsignedInteger();
             if (workerId == null) { return; }
             var worker = workerManager.GetWorkerById((int)workerId);
             if (worker == null)
@@ -327,7 +297,7 @@ namespace POOWorkersAdminV1
             }
 
             Console.WriteLine("Team's id:");
-            var teamId = AskForUnsignedInteger();
+            var teamId = DataValidator.AskForUnsignedInteger();
             if (teamId == null) { return; }
             var team = teamManager.GetTeamById((int)teamId);
             if (team == null)
@@ -346,25 +316,65 @@ namespace POOWorkersAdminV1
             }
         }
 
-        public static void AssignTaskToWorker()
+        public static void AssignTaskToWorker(TaskManager taskManager, WorkerManager workerManager)
         {
             Console.WriteLine("Introduce the following data in order to assign a task to a worker");
 
             Console.WriteLine("Worker's id:");
-            var workerId = AskForUnsignedInteger();
-            if (workerId == null) { return; }
+            var idWorker = DataValidator.AskForUnsignedInteger();
+            if (idWorker == null) { return; }
+            var worker = workerManager.GetWorkerById((int)idWorker);
+            if (worker == null)
+            {
+                Console.WriteLine("No worker found with such an id");
+                return;
+            }
 
-            Console.WriteLine("Task's id:");
-            var taskId = AskForUnsignedInteger();
-            if (taskId == null) { return; }
+            Console.WriteLine("Task's name:");
+            var taskName = Console.ReadLine();
+            if (taskName == null) { return; }
+            var task = taskManager.GetTaskByName(taskName);
+            if (task == null)
+            {
+                Console.WriteLine("No task found with such a name");
+                return;
+            }
+
+            task.IdWorker = idWorker;
         }
 
         public static void UnregisterWorker(TaskManager taskManager, WorkerManager workerManager, TeamManager teamManager)
         {
-            // TODO - remove user
-            // TODO - remove IdWorker from tasks
-            // TODO - remove IdWorker from team, checking wether it is a manager or not
+            Console.WriteLine("Introduce the following data in order to unregister a worker");
 
+            Console.WriteLine("Worker's id:");
+            var idWorker = DataValidator.AskForUnsignedInteger();
+            if (idWorker == null) { return; }
+            var worker = workerManager.GetWorkerById((int)idWorker);
+            if (worker == null)
+            {
+                Console.WriteLine("No worker found with such an id");
+                return;
+            }
+
+            if (!workerManager.UnregisterWorkerById((int)idWorker))
+            {
+                Console.WriteLine("Worker NOT unregistered correctly");
+            }
+
+            if (!taskManager.DeleteIdWorkerFromTasks((int)idWorker))
+            {
+                Console.WriteLine("Worker NOT unregistered correctly");
+            }
+
+
+            if (!teamManager.DeleteIdWorkerFromTeam((int)idWorker))
+            {
+                Console.WriteLine("Worker NOT unregistered correctly");
+            }
+
+            Console.WriteLine("Worker unregistered succesfully");
         }
+
     }
 }

@@ -38,6 +38,7 @@ namespace POOWorkersAdminV1
             }
             return null;
         }
+
         public Team GetTeamById(int id)
         {
             foreach (var team in Teams)
@@ -48,6 +49,30 @@ namespace POOWorkersAdminV1
                 }
             }
             return null;
+        }
+
+        public bool DeleteIdWorkerFromTeam(int idWorker)
+        {
+            foreach (var team in Teams)
+            {
+                if (team.Manager.Id == idWorker)
+                {
+                    team.Manager = null;
+                    return true;
+                }
+                else
+                {
+                    foreach (var worker in team.Technicians)
+                    {
+                        if (worker.Id == idWorker)
+                        {
+                            team.Technicians.Remove(worker);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
     }

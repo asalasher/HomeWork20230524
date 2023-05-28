@@ -32,5 +32,20 @@ namespace POOWorkersAdminV1
             return true;
         }
 
+        public bool UnregisterWorkerById(int idWorker)
+        {
+
+            foreach (var worker in Workers)
+            {
+                if (worker.Id == idWorker)
+                {
+                    // TODO - check this or .RemoveAt()
+                    Workers.Remove(worker);
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

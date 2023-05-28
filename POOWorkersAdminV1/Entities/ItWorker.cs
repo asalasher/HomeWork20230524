@@ -1,16 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace POOWorkersAdminV1
 {
     internal class ItWorker : Worker
     {
+        private WorkerLevel _level;
+
         public int YearsOfExperience { get; set; }
         public List<string> TechKnowleges { get; set; }
-        public WorkerLevel Level { get; set; }
+        public WorkerLevel Level
+        {
+            get
+            {
+                return _level;
+            }
+            set
+            {
+                if ((DateTime.Today.Year - BirthDate.Year) <= 18
+                    && DateTime.Today.DayOfYear <= BirthDate.DayOfYear)
+                {
+                    Console.WriteLine("Worker too your to be Senior");
+                }
+                else
+                {
+                    _level = value;
+                }
+            }
+        }
 
         public ItWorker(string name, string surname, DateTime birthDate, int yearsOfExperience, List<string> techKnowleges, WorkerLevel level) : base(name, surname, birthDate)
         {

@@ -47,5 +47,19 @@ namespace POOWorkersAdminV1
             return null;
         }
 
+        public bool DeleteIdWorkerFromTasks(int idWorker)
+        {
+            var tasks = GetTasksByIdWorker(idWorker);
+            foreach (var task in tasks)
+            {
+                if (task.IdWorker == idWorker)
+                {
+                    task.IdWorker = null;
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
