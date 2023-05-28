@@ -24,8 +24,9 @@ namespace BankAccountV2
             int loggingAttempts = 0;
             int maxNumberLoggingAttempts = 3;
             int? userIndex = null;
+            bool isLoggingFinished = false;
 
-            while (userIndex != null)
+            while (!isLoggingFinished)
             {
 
                 Console.WriteLine("Introduce your account number");
@@ -61,8 +62,9 @@ namespace BankAccountV2
                 else
                 {
                     userIndex = (int)accountIndex;
+                    isLoggingFinished = true;
+                    break;
                 }
-
 
                 if (loggingAttempts == maxNumberLoggingAttempts)
                 {
@@ -72,12 +74,11 @@ namespace BankAccountV2
 
             }
 
-            bool exit = false;
             var userTransactions = trasactions[(int)userIndex];
+            bool exit = false;
+
             while (!exit)
             {
-                int inputAttempts = 0;
-                int maxInputAttempts = 3;
 
                 Console.WriteLine("=====OPTIONS=====");
                 Console.WriteLine("1.Money income");
@@ -91,10 +92,12 @@ namespace BankAccountV2
                 #region input validation
 
                 string chosenOption = null;
+                Console.WriteLine("Select an option");
 
-                while (chosenOption != null)
+                int inputAttempts = 0;
+                int maxInputAttempts = 3;
+                while (chosenOption == null)
                 {
-                    Console.WriteLine("Select an option");
                     string consoleInput = Console.ReadLine();
                     var allowedInputs = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
 
