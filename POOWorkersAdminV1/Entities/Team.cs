@@ -9,9 +9,23 @@ namespace POOWorkersAdminV1
     internal class Team
     {
 
+        private ItWorker _manager;
         public static int TotalCount;
         public int Id;
-        public ItWorker Manager { get; set; }
+        public ItWorker Manager {
+            get { return _manager; }
+            set
+            {
+                if (value.Level == WorkerLevel.Senior)
+                {
+                    _manager = value;
+                }
+                else
+                {
+                    Console.WriteLine("Only Senior It workers can be managers")
+                }
+            }
+        }
         public List<ItWorker> Technicians { get; set; }
         public string Name { get; set; }
 

@@ -17,10 +17,9 @@ namespace POOWorkersAdminV1
             }
             set
             {
-                if ((DateTime.Today.Year - BirthDate.Year) <= 18
-                    && DateTime.Today.DayOfYear <= BirthDate.DayOfYear)
+                if (YearsOfExperience < 5)
                 {
-                    Console.WriteLine("Worker too your to be Senior");
+                    Console.WriteLine("Worker has not enough experience to be Senior");
                 }
                 else
                 {

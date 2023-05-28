@@ -110,7 +110,7 @@ namespace POOWorkersAdminV1
             var workerYearsOfExperience = DataValidator.AskForUnsignedInteger();
             if (workerYearsOfExperience == null) { return; }
 
-            Console.WriteLine("Technologies knows (write them separated by a coma):");
+            Console.WriteLine("Technologies known (write them separated by a coma):");
             var rawInput = Console.ReadLine();
             var workerTechnologies = rawInput.Split(',').Select(e => e.ToLower()).ToList();
             //var workerTechnologies = rawInput.Split(',').ToList();
@@ -166,7 +166,10 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Description:");
             var taskDescription = Console.ReadLine();
 
-            var newTask = new Task(taskName, taskDescription);
+            Console.WriteLine("Technology:");
+            var taskTechnology = Console.ReadLine();
+
+            var newTask = new Task(taskName, taskDescription, taskTechnology);
             if (taskManager.RegisterNewTask(newTask))
             {
                 Console.WriteLine("Task registered correctly!");
@@ -340,7 +343,15 @@ namespace POOWorkersAdminV1
                 return;
             }
 
-            task.IdWorker = idWorker;
+            if (worker.TechKnowleges.Contains(task.Technology)
+                && taskManager.AssignTaskToWorker((int)idWorker, task.Id))
+            {
+                Console.WriteLine("Task assigned correctly");
+                return;
+            }
+
+            Console.WriteLine("Worker does not know the technologies required");
+            Console.WriteLine("Task was not assigned");
         }
 
         public static void UnregisterWorker(TaskManager taskManager, WorkerManager workerManager, TeamManager teamManager)

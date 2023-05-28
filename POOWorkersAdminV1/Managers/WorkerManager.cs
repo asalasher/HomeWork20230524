@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace POOWorkersAdminV1
 {
@@ -28,6 +25,14 @@ namespace POOWorkersAdminV1
 
         public bool RegisterNewWorker(ItWorker worker)
         {
+
+            if ((DateTime.Today.Year - worker.BirthDate.Year) <= 18
+                && DateTime.Today.DayOfYear <= worker.BirthDate.DayOfYear)
+            {
+                Console.WriteLine("Worker too your to be an It worker");
+                return false;
+            }
+
             Workers.Add(worker);
             return true;
         }

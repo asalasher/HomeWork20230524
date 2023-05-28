@@ -31,6 +31,20 @@ namespace POOWorkersAdminV1
 
             return tasks;
         }
+        public bool AssignTaskToWorker(int idWorker, int idTask)
+        {
+
+            foreach (var task in Tasks)
+            {
+                if (task.Id == idTask )
+                {
+                    task.IdWorker = idWorker;
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public Task GetTaskByName(string taskName)
         {

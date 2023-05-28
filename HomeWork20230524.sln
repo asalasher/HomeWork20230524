@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POOWorkersAdminV1", "POOWor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAccountManagerV2", "BankAccountV2\BankAccountManagerV2.csproj", "{A43C845F-5B40-401A-A773-6EBA49F930F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POOWorkersAdminV2", "WorkManagerV2\POOWorkersAdminV2.csproj", "{B62C2DA2-BD2B-4145-B7F1-16BDF641D137}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A43C845F-5B40-401A-A773-6EBA49F930F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A43C845F-5B40-401A-A773-6EBA49F930F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A43C845F-5B40-401A-A773-6EBA49F930F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62C2DA2-BD2B-4145-B7F1-16BDF641D137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62C2DA2-BD2B-4145-B7F1-16BDF641D137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62C2DA2-BD2B-4145-B7F1-16BDF641D137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62C2DA2-BD2B-4145-B7F1-16BDF641D137}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
