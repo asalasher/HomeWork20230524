@@ -12,30 +12,14 @@ namespace POOWorkersAdminV1
         private WorkerManager workerManager;
         private TeamManager teamManager;
         private TaskManager taskManager;
-        private bool exit;
-        private Dictionary<WorkerRoles, string[]> authorizedOptions;
-        private Dictionary<string, string> optionNames;
-
-        int numberOfAttempts = 0;
-        int maxNumberOfAttempts;
-
-        public WorkerRoles? userRole { get; set; }
-        public Team UserTeam { get; set; }
-        public ItWorker ActiveUser { get; set; }
-
-        public AppController(TaskManager taskManager, WorkerManager workerManager, TeamManager teamManager)
-        {
-            this.teamManager = teamManager;
-            this.taskManager = taskManager;
-            this.workerManager = workerManager;
-            exit = false;
-            maxNumberOfAttempts = 3;
-            authorizedOptions = new Dictionary<WorkerRoles, string[]>(){
+        private bool exit = false;
+        private Dictionary<WorkerRoles, string[]> authorizedOptions = new Dictionary<WorkerRoles, string[]>(){
                 { WorkerRoles.Admin, new string[]{"1","2","3","4","5","6","7","8","9","10","11","12"} },
-                { WorkerRoles.Manager, new string[]{"5","6","7","9","10","12"} },
-                { WorkerRoles.Worker, new string[]{"6","7","10","12"} },
+                { WorkerRoles.Manager, new string[] { "5", "6", "7", "9", "10", "12" } },
+                { WorkerRoles.Worker, new string[] { "6", "7", "10", "12" } },
             };
-            optionNames = new Dictionary<string, string>()
+
+        private Dictionary<string, string> optionNames = new Dictionary<string, string>()
             {
                 {"1", "Register new IT worker"},
                 {"2", "Register new team"},
@@ -51,17 +35,31 @@ namespace POOWorkersAdminV1
                 {"12", "Exit"},
             };
 
-            WorkerRoles? userRole = null;
-            Team userTeam = null;
-            ItWorker activeUser = null;
+        int numberOfAttempts = 0;
+        int maxNumberOfAttempts;
+
+        public WorkerRoles? UserRole { get; set; }
+        public Team UserTeam { get; set; }
+        public ItWorker ActiveUser { get; set; }
+
+        public AppController() { }
+
+        public AppController(TaskManager taskManager, WorkerManager workerManager, TeamManager teamManager)
+        {
+            this.teamManager = teamManager;
+            this.taskManager = taskManager;
+            this.workerManager = workerManager;
+            maxNumberOfAttempts = 3;
+
+            UserRole = null;
+            UserTeam = null;
+            ActiveUser = null;
         }
 
         public void Run()
         {
 
-            LoginUser();
-
-            if (exit) { return; }
+            LogInUser();
 
             do
             {
@@ -72,17 +70,17 @@ namespace POOWorkersAdminV1
  
         }
 
-        public void LoginUser()
+        public void LogInUser()
         {
 
-            while (userRole is null)
+            while (UserRole is null)
             {
                 Console.WriteLine("Wellcome to your Bank");
                 int? userId = AskForInteger("Introduce your user id:", 0);
 
                 if (userId == 0)
                 {
-                    userRole = WorkerRoles.Admin;
+                    UserRole = WorkerRoles.Admin;
                     break;
                 }
 
@@ -95,12 +93,12 @@ namespace POOWorkersAdminV1
                         UserTeam = teamManager.GetTeamByWorkerId(worker.Id);
                         if (UserTeam.Manager.Id == worker.Id)
                         {
-                            userRole = WorkerRoles.Manager;
+                            UserRole = WorkerRoles.Manager;
                             break;
                         }
                         else
                         {
-                            userRole = WorkerRoles.Worker;
+                            UserRole = WorkerRoles.Worker;
                             break;
                         }
                     }
@@ -110,7 +108,7 @@ namespace POOWorkersAdminV1
 
         public bool CheckUserAuth(string chosenOption)
         {
-            return authorizedOptions[(WorkerRoles)userRole].Contains(chosenOption);
+            return authorizedOptions[(WorkerRoles)UserRole].Contains(chosenOption);
         }
 
         public void AskForOption()
@@ -184,47 +182,12 @@ namespace POOWorkersAdminV1
         {
             Console.WriteLine("==========OPTIONS===========");
 
-            var keys = authorizedOptions[(WorkerRoles)userRole];
+            var keys = authorizedOptions[(WorkerRoles)UserRole];
             foreach (string key in keys)
             {
                 Console.WriteLine($"{key}. {optionNames[key]}");
             }
 
-            //switch (userRole)
-            //{
-            //    case WorkerRoles.Admin:
-            //        Console.WriteLine("=====================");
-            //        Console.WriteLine("1. Register new IT worker");
-            //        Console.WriteLine("2. Register new team");
-            //        Console.WriteLine("3. Register new task (unassigned to anyone)");
-            //        Console.WriteLine("4. List all team names");
-            //        Console.WriteLine("5. List team members by team name");
-            //        Console.WriteLine("6. List unassigned tasks");
-            //        Console.WriteLine("7. List tasks assignments by team name");
-            //        Console.WriteLine("8. Assign IT worker to a team as manager");
-            //        Console.WriteLine("9. Assign IT worker to a team as technician");
-            //        Console.WriteLine("10. Assign task to IT worker");
-            //        Console.WriteLine("11. Unregister worker");
-            //        Console.WriteLine("12. Exit");
-            //        break;
-            //    case WorkerRoles.Manager:
-            //        Console.WriteLine("5. List team members by team name");
-            //        Console.WriteLine("6. List unassigned tasks");
-            //        Console.WriteLine("7. List tasks assignments by team name");
-            //        Console.WriteLine("9. Assign IT worker to a team as technician");
-            //        Console.WriteLine("10. Assign task to IT worker");
-            //        Console.WriteLine("12. Exit");
-            //        break;
-            //    case WorkerRoles.Worker:
-            //        Console.WriteLine("=====================");
-            //        Console.WriteLine("6. List unassigned tasks");
-            //        Console.WriteLine("7. List tasks assignments by team name");
-            //        Console.WriteLine("10. Assign task to IT worker");
-            //        Console.WriteLine("12. Exit");
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         public void RegisterNewItWorker()
@@ -239,7 +202,7 @@ namespace POOWorkersAdminV1
             var workerDateOfBirth = AskForDate("Date of birth:");
             if (workerDateOfBirth == null) { return; }
 
-            var workerYearsOfExperience = AskForUnsignedInteger("Years of experience:");
+            var workerYearsOfExperience = AskForInteger("Years of experience:", 1);
             if (workerYearsOfExperience == null) { return; }
 
             string rawInput = AskForString("Technologies known (write them separated by a coma):");
@@ -265,7 +228,7 @@ namespace POOWorkersAdminV1
             string newTeamName = AskForString("Name:");
             if (newTeamName == null) { return; }
 
-            var newTeamManagerId = AskForUnsignedInteger("Introduce the id of the worker to become manager");
+            var newTeamManagerId = AskForInteger("Introduce the id of the worker to become manager", 1);
             if (newTeamManagerId == null) { return; }
 
             var newTeamManager = workerManager.GetWorkerById((int)newTeamManagerId);
@@ -314,7 +277,7 @@ namespace POOWorkersAdminV1
         {
             string teamName;
 
-            if (userRole == WorkerRoles.Manager)
+            if (UserRole == WorkerRoles.Manager)
             {
                 teamName = UserTeam.Name;
             }
@@ -355,7 +318,7 @@ namespace POOWorkersAdminV1
         {
             Team team;
 
-            if (userRole == WorkerRoles.Manager || userRole == WorkerRoles.Worker)
+            if (UserRole == WorkerRoles.Manager || UserRole == WorkerRoles.Worker)
             {
                 team = UserTeam;
             }
@@ -389,7 +352,7 @@ namespace POOWorkersAdminV1
 
         public void AssignTeamManager()
         {
-            int? workerId = AskForUnsignedInteger("Introduce the worker's id");
+            int? workerId = AskForInteger("Introduce the worker's id", 1);
             if (workerId == null) { return; }
 
             ItWorker worker = workerManager.GetWorkerById((int)workerId);
@@ -405,7 +368,7 @@ namespace POOWorkersAdminV1
                 return;
             }
 
-            int? teamId = AskForUnsignedInteger("Introduce the team's id");
+            int? teamId = AskForInteger("Introduce the team's id", 1);
             if (teamId == null) { return; }
 
             Team team = teamManager.GetTeamById((int)teamId);
@@ -423,7 +386,7 @@ namespace POOWorkersAdminV1
 
         public void AssignTeamTechnician()
         {
-            int? workerId = AskForUnsignedInteger("Introduce the worker's id");
+            int? workerId = AskForInteger("Introduce the worker's id", 1);
             if (workerId == null) { return; }
 
             ItWorker worker = workerManager.GetWorkerById((int)workerId);
@@ -433,7 +396,7 @@ namespace POOWorkersAdminV1
                 return;
             }
 
-            int? teamId = AskForUnsignedInteger("Introduce the team's id");
+            int? teamId = AskForInteger("Introduce the team's id", 1);
             if (teamId == null) { return; }
 
             Team team = teamManager.GetTeamById((int)teamId);
@@ -456,9 +419,9 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Introduce the following data in order to assign a task");
             int? idWorker;
 
-            if (userRole != WorkerRoles.Worker)
+            if (UserRole != WorkerRoles.Worker)
             {
-                idWorker = AskForUnsignedInteger("Introduce the worker's id");
+                idWorker = AskForInteger("Introduce the worker's id", 1);
                 if (idWorker == null) { return; }
             }
             else
@@ -497,7 +460,7 @@ namespace POOWorkersAdminV1
         public void UnregisterWorker()
         {
             Console.WriteLine("Introduce the following data in order to unregister a worker");
-            var idWorker = AskForUnsignedInteger("Introduce the worker's id");
+            var idWorker = AskForInteger("Introduce the worker's id", 1);
             if (idWorker == null) { return; }
 
             ItWorker worker = workerManager.GetWorkerById((int)idWorker);
@@ -516,28 +479,6 @@ namespace POOWorkersAdminV1
             Console.WriteLine("Worker unregistered succesfully");
         }
 
-        public int? AskForUnsignedInteger(string consoleText)
-        {
-            Console.WriteLine($"{consoleText}. It must be a positive integer.");
-            numberOfAttempts = 0;
-
-            while (numberOfAttempts < maxNumberOfAttempts)
-            {
-                if (int.TryParse(Console.ReadLine(), out int validatedInput) && validatedInput > 0)
-                {
-                    return validatedInput;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please make sure your input is a positive integer value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
-                }
-            }
-            Console.WriteLine("Too many attempts, try again later");
-            exit = true;
-            return null;
-        }
-
         public int? AskForInteger(string consoleText, int minimumValue)
         {
             Console.WriteLine($"{consoleText}. It must be an integer greater or equal to {minimumValue}.");
@@ -551,33 +492,11 @@ namespace POOWorkersAdminV1
                 }
                 else
                 {
+                    numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is a positive integer value");
                     Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
                 }
             }
-            Console.WriteLine("Too many attempts, try again later");
-            exit = true;
-            return null;
-        }
-
-        public decimal? AskForUnsignedDecimal(string consoleText)
-        {
-            Console.WriteLine($"{consoleText}. It must be a valid number.");
-            numberOfAttempts = 0;
-
-            while (numberOfAttempts < maxNumberOfAttempts)
-            {
-                if (decimal.TryParse(Console.ReadLine(), out decimal validatedInput) && validatedInput > 0)
-                {
-                    return validatedInput;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please make sure your input is a positive decimal value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
-                }
-            }
-
             Console.WriteLine("Too many attempts, try again later");
             exit = true;
             return null;
@@ -596,6 +515,7 @@ namespace POOWorkersAdminV1
                 }
                 else
                 {
+                    numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input follows the correct date format");
                     Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
                 }
@@ -619,29 +539,7 @@ namespace POOWorkersAdminV1
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please make sure your input is a positive decimal value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
-                }
-            }
-
-            Console.WriteLine("Too many attempts, try again later");
-            exit = true;
-            return null;
-        }
-
-        public TaskStatus? AskForTaskStatus(string consoleText)
-        {
-            Console.WriteLine($"{consoleText}. It must be ToDo, Doing or Done");
-            numberOfAttempts = 0;
-
-            while (numberOfAttempts < maxNumberOfAttempts)
-            {
-                if (WorkerLevel.TryParse(Console.ReadLine(), out TaskStatus validatedInput))
-                {
-                    return validatedInput;
-                }
-                else
-                {
+                    numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is a positive decimal value");
                     Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
                 }
@@ -667,6 +565,7 @@ namespace POOWorkersAdminV1
                 }
                 else
                 {
+                    numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is not an empty text");
                     Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
                 }
@@ -676,5 +575,6 @@ namespace POOWorkersAdminV1
             exit = true;
             return null;
         }
+
     }
 }
