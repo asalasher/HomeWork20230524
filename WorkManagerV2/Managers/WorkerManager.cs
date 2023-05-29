@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WorkManagerV2;
 
 namespace POOWorkersAdminV1
 {
-    public class WorkerManager
+    public class WorkerManager: IWorkerManager
     {
         private List<ItWorker> Workers { get; set; }
         public WorkerManager(List<ItWorker> workers)

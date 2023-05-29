@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using WorkManagerV2;
 
 namespace POOWorkersAdminV1
 {
-    public class TaskManager
+    public class TaskManager: ITaskManager
     {
-        private List<Task> Tasks { get; set; }
+        private List<Task> tasks;
         public TaskManager()
         {
-            Tasks = new List<Task>();
+            tasks = new List<Task>();
         }
 
         public bool RegisterNewTask(Task newTask)
         {
-            Tasks.Add(newTask);
+            tasks.Add(newTask);
             return true;
         }
 
@@ -21,7 +22,7 @@ namespace POOWorkersAdminV1
         {
             var tasks = new List<Task>();
 
-            foreach (var task in Tasks)
+            foreach (var task in tasks)
             {
                 if (task.IdWorker == idWorker)
                 {
@@ -33,7 +34,7 @@ namespace POOWorkersAdminV1
         }
         public bool AssignTaskToWorker(int idWorker, int idTask)
         {
-            foreach (var task in Tasks)
+            foreach (var task in tasks)
             {
                 if (task.Id == idTask && task.Status != TaskStatus.Done )
                 {
@@ -47,7 +48,7 @@ namespace POOWorkersAdminV1
 
         public Task GetTaskByName(string taskName)
         {
-            foreach (var task in Tasks)
+            foreach (var task in tasks)
             {
                 if (task.Name == taskName)
                 {

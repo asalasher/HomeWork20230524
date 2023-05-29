@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Text;
+using WorkManagerV2;
 
 namespace POOWorkersAdminV1
 {
     public class AppController
     {
-        private WorkerManager workerManager;
-        private TeamManager teamManager;
-        private TaskManager taskManager;
+        private IWorkerManager workerManager;
+        private ITeamManager teamManager;
+        private ITaskManager taskManager;
         private bool exit = false;
-        private Dictionary<WorkerRoles, string[]> authorizedOptions = new Dictionary<WorkerRoles, string[]>(){
+        private readonly Dictionary<WorkerRoles, string[]> authorizedOptions = new Dictionary<WorkerRoles, string[]>(){
                 { WorkerRoles.Admin, new string[]{"1","2","3","4","5","6","7","8","9","10","11","12"} },
                 { WorkerRoles.Manager, new string[] { "5", "6", "7", "9", "10", "12" } },
                 { WorkerRoles.Worker, new string[] { "6", "7", "10", "12" } },
-            };
+        };
 
-        private Dictionary<string, string> optionNames = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> optionNames = new Dictionary<string, string>()
             {
                 {"1", "Register new IT worker"},
                 {"2", "Register new team"},
@@ -33,7 +32,7 @@ namespace POOWorkersAdminV1
                 {"10", "Assign task to IT worker"},
                 {"11", "Unregister worker"},
                 {"12", "Exit"},
-            };
+        };
 
         int numberOfAttempts = 0;
         int maxNumberOfAttempts;
@@ -44,7 +43,7 @@ namespace POOWorkersAdminV1
 
         public AppController() { }
 
-        public AppController(TaskManager taskManager, WorkerManager workerManager, TeamManager teamManager)
+        public AppController(ITaskManager taskManager, IWorkerManager workerManager, ITeamManager teamManager)
         {
             this.teamManager = teamManager;
             this.taskManager = taskManager;

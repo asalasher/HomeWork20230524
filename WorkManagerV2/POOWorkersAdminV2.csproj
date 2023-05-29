@@ -49,6 +49,7 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Worker.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Managers\TeamManager.cs" />
     <Compile Include="Managers\WorkerManager.cs" />
