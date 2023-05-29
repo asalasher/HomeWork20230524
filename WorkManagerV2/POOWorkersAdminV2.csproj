@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
-    <Compile Include="DataValidator.cs" />
     <Compile Include="Entities\ItWorker.cs" />
     <Compile Include="Entities\Task.cs" />
     <Compile Include="Entities\Team.cs" />

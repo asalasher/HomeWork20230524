@@ -17,12 +17,14 @@ namespace ConsoleAppFamily
             set { age = value; }
         }
 
-        public string GrandFatherName {
+        public string GrandFatherName
+        {
             get { return name; }
             set { name = value; }
         }
 
-        public int GrandFatherId {
+        public int GrandFatherId
+        {
             get { return id; }
             set { id = value; }
         }
