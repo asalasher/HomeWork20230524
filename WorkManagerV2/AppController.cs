@@ -494,7 +494,7 @@ namespace POOWorkersAdminV1
                 {
                     numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is a positive integer value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
+                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts} attempts left");
                 }
             }
             Console.WriteLine("Too many attempts, try again later");
@@ -517,10 +517,9 @@ namespace POOWorkersAdminV1
                 {
                     numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input follows the correct date format");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
+                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts} attempts left");
                 }
             }
-
             Console.WriteLine("Too many attempts, try again later");
             exit = true;
             return null;
@@ -541,10 +540,9 @@ namespace POOWorkersAdminV1
                 {
                     numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is a positive decimal value");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
+                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts} attempts left");
                 }
             }
-
             Console.WriteLine("Too many attempts, try again later");
             exit = true;
             return null;
@@ -567,10 +565,9 @@ namespace POOWorkersAdminV1
                 {
                     numberOfAttempts++;
                     Console.WriteLine("Invalid input. Please make sure your input is not an empty text");
-                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts}attempts left");
+                    Console.WriteLine($"{maxNumberOfAttempts - numberOfAttempts} attempts left");
                 }
             }
-
             Console.WriteLine("Too many attempts, try again later");
             exit = true;
             return null;
