@@ -5,6 +5,7 @@ namespace POOWorkersAdminV1
 {
     public class ItWorker : Worker
     {
+
         private WorkerLevel _level;
 
         public int YearsOfExperience { get; set; }
@@ -34,5 +35,6 @@ namespace POOWorkersAdminV1
             TechKnowleges = techKnowleges;
             Level = level;
         }
+
     }
 }

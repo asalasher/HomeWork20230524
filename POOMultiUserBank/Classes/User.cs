@@ -46,7 +46,6 @@ namespace POOMultiUserBank
             return balance;
         }
 
-        //TODO - hacer un enum para outcome or income, asi se reutiliza codigo
         public void PrintTransactions(string transactionType)
         {
             if (Transactions.Count == 0)

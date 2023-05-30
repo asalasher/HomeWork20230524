@@ -9,6 +9,7 @@ namespace POOWorkersAdminV1
 {
     public class Task
     {
+
         private string _technology;
 
         public static int TotalCount;
@@ -45,5 +46,6 @@ namespace POOWorkersAdminV1
         {
             return $"Id: {Id} | Name: {Name} | Description: {Description} | Status: {Status} | IdWorker: {IdWorker} |";
         }
+
     }
 }

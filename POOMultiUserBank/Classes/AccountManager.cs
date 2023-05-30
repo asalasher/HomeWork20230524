@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POOMultiUserBank
 {
-    internal class AccountManager
+    public class AccountManager
     {
         private List<User> Users { get; set; }
         public AccountManager(List<User> users)

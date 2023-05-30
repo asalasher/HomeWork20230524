@@ -5,6 +5,7 @@ namespace POOWorkersAdminV1
 {
     public class WorkerManager
     {
+
         private List<ItWorker> Workers { get; set; }
         public WorkerManager(List<ItWorker> workers)
         {

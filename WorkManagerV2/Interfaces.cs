@@ -19,6 +19,7 @@ namespace WorkManagerV2
         bool RegisterNewWorker(ItWorker worker);
         bool UnregisterWorkerById(int idWorker);
     }
+
     public interface ITeamManager
     {
         List<Team> Teams { get; set; }

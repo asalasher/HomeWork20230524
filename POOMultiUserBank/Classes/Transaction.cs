@@ -24,6 +24,5 @@ namespace POOMultiUserBank
             return $"Id:{Id} | Date:{Date} | Qty:{Quantity}";
         }
 
-
     }
 }

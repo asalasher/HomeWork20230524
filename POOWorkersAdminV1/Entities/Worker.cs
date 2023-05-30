@@ -8,6 +8,7 @@ namespace POOWorkersAdminV1
 {
     public class Worker
     {
+
         public static int TotalCount { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,5 +24,6 @@ namespace POOWorkersAdminV1
             Surname = surname;
             BirthDate = birthDate;
         }
+
     }
 }

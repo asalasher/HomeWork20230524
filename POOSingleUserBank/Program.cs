@@ -8,7 +8,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace POOSingleUserBank
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {

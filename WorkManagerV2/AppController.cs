@@ -6,11 +6,12 @@ using WorkManagerV2;
 
 namespace POOWorkersAdminV1
 {
+
     public class AppController
     {
-        private IWorkerManager workerManager;
-        private ITeamManager teamManager;
-        private ITaskManager taskManager;
+        private readonly IWorkerManager workerManager;
+        private readonly ITeamManager teamManager;
+        private readonly ITaskManager taskManager;
         private bool exit = false;
         private readonly Dictionary<WorkerRoles, string[]> authorizedOptions = new Dictionary<WorkerRoles, string[]>(){
                 { WorkerRoles.Admin, new string[]{"1","2","3","4","5","6","7","8","9","10","11","12"} },
@@ -18,8 +19,7 @@ namespace POOWorkersAdminV1
                 { WorkerRoles.Worker, new string[] { "6", "7", "10", "12" } },
         };
 
-        private readonly Dictionary<string, string> optionNames = new Dictionary<string, string>()
-            {
+        private readonly Dictionary<string, string> optionNames = new Dictionary<string, string>(){
                 {"1", "Register new IT worker"},
                 {"2", "Register new team"},
                 {"3", "Register new task (unassigned to anyone)"},
@@ -59,14 +59,12 @@ namespace POOWorkersAdminV1
         {
 
             LogInUser();
-
             do
             {
                 PrintMenus();
                 AskForOption();
             }
             while (!exit);
- 
         }
 
         public void LogInUser()
@@ -186,7 +184,6 @@ namespace POOWorkersAdminV1
             {
                 Console.WriteLine($"{key}. {optionNames[key]}");
             }
-
         }
 
         public void RegisterNewItWorker()
@@ -469,7 +466,7 @@ namespace POOWorkersAdminV1
                 return;
             }
 
-            if (!workerManager.UnregisterWorkerById((int)idWorker) 
+            if (!workerManager.UnregisterWorkerById((int)idWorker)
                 || !taskManager.DeleteIdWorkerFromTasks((int)idWorker)
                 || !teamManager.DeleteIdWorkerFromTeam((int)idWorker))
             {

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace POOWorkersAdminV1
 {
+
     public class Team
     {
 
@@ -62,7 +63,6 @@ namespace POOWorkersAdminV1
         {
             return $"Id: {Id} | Name: {Name} | Manager id: {Manager.Id} | Manger name: {Manager.Name}";
         }
-
 
     }
 }

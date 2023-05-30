@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POOMultiUserBank
 {
-    internal class Session
+    public class Session
     {
         public User activeUser;
         private int loginAttempts;
